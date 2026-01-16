@@ -71,7 +71,16 @@ router.post("/todos/:id/complete", async (req, res) => {
   }
 });
 
-
+// MARK AS DELETED
+router.post("/todos/:id/delete", async (req, res) => {
+  try {
+    await Todo.findByIdAndUpdate(req.params.id, { status: "deleted" });
+    res.redirect("/todos");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
 
 
 export default router;
