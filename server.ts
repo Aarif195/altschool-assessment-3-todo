@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 3000;
 // Body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "src", "public")));
+
 
 const MONGO_URI = process.env.MONGO_URI!;
 mongoose
@@ -37,8 +39,6 @@ app.use(todosRoutes);
 // EJS setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src", "views"));
-
-
 
 
 // Test route

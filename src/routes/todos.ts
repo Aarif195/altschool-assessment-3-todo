@@ -18,7 +18,6 @@ router.get("/todos", async (req: CustomRequest, res) => {
     }
 
     const filter: any = { user: req.session.userId };
-
     if (req.query.status) {
       filter.status = req.query.status;
     }

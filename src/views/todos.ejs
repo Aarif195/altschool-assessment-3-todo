@@ -1,40 +1,53 @@
 <!DOCTYPE html>
 <html>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Application</title>
+  <link rel="stylesheet" href="/todos.css">
+
+</head>
   <body>
-  <h2>My Todos</h2>
+    <div class="container">
 
-  <p>
-  Show: 
-  <a href="/todos">All</a> | 
-  <a href="/todos?status=pending">Pending</a> | 
-  <a href="/todos?status=completed">Completed</a>
-</p>
+    <h2>My Todos</h2>
 
-<form action="/todos" method="POST">
-  <input type="text" name="title" placeholder="New task" required />
-  <button type="submit">Add</button>
-</form>
+    <p >
+      Show:
+      <a href="/todos">All</a> | <a href="/todos?status=pending">Pending</a> |
+      <a href="/todos?status=completed">Completed</a>
+    </p>
 
+    <form action="/todos" method="POST">
+      <input type="text" name="title" placeholder="New task" required />
+      <button type="submit">Add</button>
+    </form>
 
-<ul>
-  <% todos.forEach(todo => { %>
-    <li>
-      <%= todo.title %> - <%= todo.status %>
-      <% if (todo.status === "pending") { %>
-        <form action="/todos/<%= todo._id %>/complete" method="POST" style="display:inline;">
+    <ul>
+      <% todos.forEach(todo => { %>
+      <li class="<%= todo.status %>">
+        <%= todo.title %> - <%= todo.status %> <% if (todo.status === "pending")
+        { %>
+        <form
+          action="/todos/<%= todo._id %>/complete"
+          method="POST"
+          style="display: inline"
+        >
           <button type="submit">Complete</button>
         </form>
-      <% } %>
-      <% if (todo.status !== "deleted") { %>
-        <form action="/todos/<%= todo._id %>/delete" method="POST" style="display:inline;">
+        <% } %> <% if (todo.status !== "deleted") { %>
+        <form
+          action="/todos/<%= todo._id %>/delete"
+          method="POST"
+          style="display: inline"
+        >
           <button type="submit">Delete</button>
         </form>
-      <% } %>
-    </li>
-  <% }) %>
-</ul>
-
-
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+    </div>
 
   </body>
 </html>

@@ -17,7 +17,6 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-
 // Signup
 router.post("/signup", async (req: CustomRequest, res: Response) => {
   const { username, password } = req.body;
@@ -28,10 +27,9 @@ router.post("/signup", async (req: CustomRequest, res: Response) => {
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hash });
 
+    req.session.userId = user._id;
 
-req.session.userId = user._id;
-
-    res.redirect("/login"); // redirect to index.ejs
+    res.redirect("/login"); // redirect to login.ejs
   } catch (err) {
     console.error(err);
     res.send("Error occurred");
@@ -49,7 +47,7 @@ router.post("/login", async (req: CustomRequest, res: Response) => {
     if (!match) return res.send("Invalid password");
 
     req.session.userId = user._id.toString();
-    res.redirect("/todos"); // redirect to index.ejs
+    res.redirect("/todos"); // redirect to todos.ejs
   } catch (err) {
     console.error(err);
     res.send("Error occurred");

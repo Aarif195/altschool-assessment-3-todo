@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface ITodo extends Document {
   title: string;
   status: "pending" | "completed" | "deleted";
-  user: string; // stores the ObjectId of the user
+  user: string;
 }
 
 const TodoSchema: Schema = new Schema({
