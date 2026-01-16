@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 import authRoutes from "./src/routes/auth";
 import todosRoutes from "./src/routes/todos";
 
-
 dotenv.config();
 
 const app = express();
