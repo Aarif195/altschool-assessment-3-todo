@@ -31,6 +31,34 @@ router.get("/todos", async (req: CustomRequest, res) => {
   }
 });
 
+
+// POST
+router.post("/todos", async (req: CustomRequest, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.redirect("/login");
+    }
+
+    const { title } = req.body;
+
+    if (!title) {
+      return res.status(400).send("Title is required");
+    }
+
+    const todo = await Todo.create({
+      title,
+      user: req.session.userId,
+    });
+
+    console.log("Body:", req.body);
+    console.log("Session userId:", req.session.userId);
+
+    res.redirect("/todos");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+
 export default router;
-
-
