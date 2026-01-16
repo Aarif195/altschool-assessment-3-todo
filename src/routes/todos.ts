@@ -60,5 +60,18 @@ router.post("/todos", async (req: CustomRequest, res) => {
   }
 });
 
+// MARK AS COMPLETED
+router.post("/todos/:id/complete", async (req, res) => {
+  try {
+    await Todo.findByIdAndUpdate(req.params.id, { status: "completed" });
+    res.redirect("/todos");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 
 export default router;
