@@ -2,18 +2,25 @@ import express from "express";
 import session from "express-session";
 import path from "path";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import authRoutes from "./src/routes/auth";
+import todosRoutes from "./src/routes/todos";
+
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// EJS setup
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "src", "views"));
-
 // Body parser
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const MONGO_URI = process.env.MONGO_URI!;
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Session
 app.use(
@@ -24,9 +31,19 @@ app.use(
   })
 );
 
+app.use(authRoutes);
+app.use(todosRoutes);
+
+// EJS setup
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src", "views"));
+
+
+
+
 // Test route
 app.get("/", (req, res) => {
-  res.render("index"); // renders views/index.ejs
+  res.render("index"); 
 });
 
 app.listen(PORT, () => {
