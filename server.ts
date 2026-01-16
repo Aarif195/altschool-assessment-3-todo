@@ -36,8 +36,12 @@ app.use(authRoutes);
 app.use(todosRoutes);
 
 // EJS setup
+const viewsPath = __dirname.endsWith('dist') 
+  ? path.join(__dirname, '..', 'src', 'views') 
+  : path.join(__dirname, 'src', 'views');
+
+app.set("views", viewsPath);
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "src", "views"));
 
 
 // Test route
