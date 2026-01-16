@@ -1,5 +1,5 @@
 {
-  "name": "alt",
+  "name": "altschool-assignment-three",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,10 +7,17 @@
     "dev": "nodemon server.ts",
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "todo",
+    "nodejs",
+    "typescript",
+    "ejs",
+    "express",
+    "mongoose"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A simple Todo application built with Node.js, TypeScript, Express, EJS, and MongoDB. Allows users to sign up, log in, create tasks, and manage their tasks by marking them as pending, completed, or deleted.",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
