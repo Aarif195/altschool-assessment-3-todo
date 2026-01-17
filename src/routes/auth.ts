@@ -18,7 +18,7 @@ router.get("/login", (req, res) => {
 });
 
 // Signup
-router.post("/", async (req: CustomRequest, res: Response) => {
+router.post("/", async (req: CustomRequest, res: Response) => { 
   const username = req.body.username?.trim();
   const password = req.body.password?.trim();
 

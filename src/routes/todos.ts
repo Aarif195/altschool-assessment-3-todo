@@ -21,7 +21,7 @@ router.get("/todos", async (req: CustomRequest, res) => {
     if (req.query.status) {
       filter.status = req.query.status;
     }
-    const todos = await Todo.find(filter);
+    const todos = await Todo.find(filter).sort({ createdAt: -1 });
     // console.log("Todos fetched:", todos);
     res.render("todos", { todos });
   } catch (err) {
@@ -30,14 +30,12 @@ router.get("/todos", async (req: CustomRequest, res) => {
   }
 });
 
-
 // POST
 router.post("/todos", async (req: CustomRequest, res) => {
   try {
     if (!req.session.userId) {
       return res.redirect("/login");
     }
-
     const { title } = req.body;
 
     if (!title) {

@@ -52,7 +52,6 @@ p a:hover {
 form {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 form input[type="text"] {
@@ -60,7 +59,7 @@ form input[type="text"] {
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 form button {
@@ -81,7 +80,7 @@ form button:hover {
 ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin-bottom: 20px;
 }
 
 li {
@@ -184,4 +183,11 @@ form[action="/signup"] button {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+
+@media (max-width:768px)  {
+  .container {
+    width: 280px;
+  }
 }
