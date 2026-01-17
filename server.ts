@@ -42,6 +42,7 @@ const viewsPath = __dirname.endsWith('dist')
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "src", "public")));
 
 
 // Test route
