@@ -9,20 +9,28 @@ interface CustomRequest extends Request {
 
 const router = Router();
 
-router.get("/signup", (req, res) => {
-  res.render("signup");
+router.get("/", (req, res) => {
+  res.render("index", { error: null });
 });
 
 router.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { error: null });
 });
 
 // Signup
-router.post("/signup", async (req: CustomRequest, res: Response) => {
-  const { username, password } = req.body;
+router.post("/", async (req: CustomRequest, res: Response) => {
+  const username = req.body.username?.trim();
+  const password = req.body.password?.trim();
+
+  if (!username || !password) {
+    return res.render("index", { error: "All fields are required" });
+  }
+
   try {
     const existing = await User.findOne({ username });
-    if (existing) return res.send("Username already exists");
+    if (existing) {
+      return res.render("index", { error: "Username already exists" });
+    }
 
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hash });
@@ -32,25 +40,34 @@ router.post("/signup", async (req: CustomRequest, res: Response) => {
     res.redirect("/login"); // redirect to login.ejs
   } catch (err) {
     console.error(err);
-    res.send("Error occurred");
+    res.render("index", { error: "An error occurred during signup" });
   }
 });
 
 // Login
 router.post("/login", async (req: CustomRequest, res: Response) => {
-  const { username, password } = req.body;
-  try {
+  const username = req.body.username?.trim();
+  const password = req.body.password?.trim();
+
+  if (!username || !password) {
+    return res.render("login", { error: "Please enter username and password" });
+  }
+
+try {
     const user = await User.findOne({ username });
-    if (!user) return res.send("Invalid username");
+    if (!user) {
+      return res.render("login", { error: "Invalid credentials" });
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.send("Invalid password");
+    if (!match) {
+      return res.render("login", { error: "Invalid credentials" });
+    }
 
     req.session.userId = user._id.toString();
-    res.redirect("/todos"); // redirect to todos.ejs
+    res.redirect("/todos");
   } catch (err) {
-    console.error(err);
-    res.send("Error occurred");
+    res.render("login", { error: "An error occurred during login" });
   }
 });
 

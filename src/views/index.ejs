@@ -8,13 +8,19 @@
   </head>
   <body class="parent-container">
     <div class="container">
-    <h2>Signup</h2>
+      <h2>Signup</h2>
 
-    <form method="POST" action="/signup">
-      <input name="username" placeholder="username" />
-      <input name="password" type="password" placeholder="password" />
-      <button type="submit">Signup</button>
-    </form>
+      <form method="POST" action="/">
+        <% if (error) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+
+        <input name="username" placeholder="username" />
+        <input name="password" type="password" placeholder="password" />
+        <button type="submit">Signup</button>
+
+        <p>Already have an account? <a href="/login">Login here</a></p>
+      </form>
     </div>
   </body>
 </html>

@@ -53,8 +53,6 @@ const publicPath = isDist
 
 app.use(express.static(publicPath));
 
-
-
 // Test route
 app.get("/", (req, res) => {
   res.render("index"); 
