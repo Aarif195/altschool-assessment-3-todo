@@ -36,13 +36,23 @@ app.use(authRoutes);
 app.use(todosRoutes);
 
 // EJS setup
-const viewsPath = __dirname.endsWith('dist') 
+
+const isDist = __dirname.endsWith('dist');
+
+const viewsPath = isDist 
   ? path.join(__dirname, '..', 'src', 'views') 
   : path.join(__dirname, 'src', 'views');
 
 app.set("views", viewsPath);
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "src", "public")));
+
+// Set static to the public folder
+const publicPath = isDist
+  ? path.join(__dirname, '..', 'src', 'public') 
+  : path.join(__dirname, 'src', 'public');
+
+app.use(express.static(publicPath));
+
 
 
 // Test route
